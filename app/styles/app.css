@@ -1,0 +1,7 @@
+.container .liquid-container, .container textarea{
+  width: 100%;
+};
+
+.taskInput{
+  display: inline-block;
+}

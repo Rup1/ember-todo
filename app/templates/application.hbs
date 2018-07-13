@@ -1,5 +1,52 @@
-{{!-- The following component displays Ember's default welcome message. --}}
-{{welcome-page}}
-{{!-- Feel free to remove this! --}}
+{{!-- <h2 class="text-center">Ember To Do List</h2> --}}
+<br>
+<div class="container col-sm-4 p-0">
+  <div class="d-flex">
+    {{input class="form-control mr-1" value=description enter=(action 'saveTask' description)}}
+    <button class="btn btn-success" type="submit">
+      <span {{action 'saveTask' description}} class="glyphicon glyphicon-plus">Save</span>
+    </button>
+  </div>
+</div>
+<br>
+<br>
+<div class="container col-sm-4">
+    {{#each model as |task|}}
+      <div class="row">
+        <div class="list-group-item list-group-item-action" {{action 'toggleTask' task 'showNote'}}>
+          {{input type="checkbox" checked=task.isDone click=(action 'toggleTask' task checked)}}
 
+          {{#if task.isEditing}}
+            {{input value=task.description}} <button {{action "saveEdit" task}} class="btn btn-success">Save</button>
+          {{else}}
+          <span {{action "editTask" task on="doubleClick"}}>{{task.description}}</span>
+          {{/if}}
+
+
+        <div class="float-right">
+          <button class="btn btn-outline-success" data-toggle="button" {{action "toggleTask" task 'isDone'}}>✓</button>
+          <button class="btn btn-outline-danger" data-toggle="button" {{action "delete" task}}>X</button>
+        </div>
+        </div>
+        {{#liquid-if task.showNote use='toDown'}}
+          {{#if task.note}}
+            <div class="list-group-item list-group-item-action">
+              {{#unless task.editingNote}}
+                <p class="taskNote">{{task.note}}</p>
+                <button {{action "toggleTask" task 'editingNote'}} class="btn btn-primary btn-block">Edit</button>
+              {{else}}
+                  {{textarea class="form-control note-text-area" value=taskNote}}
+                  <button {{action "saveNote" task taskNote}} class="btn btn-primary btn-block">Submit</button>
+              {{/unless}}
+            </div>
+          {{else}}
+            <div class="list-group-item list-group-item-action">
+              {{textarea class="form-control note-text-area" value=taskNote}}
+              <button {{action "saveNote" task taskNote}} class="btn btn-primary btn-block">Submit</button>
+            </div>
+          {{/if}}
+        {{/liquid-if}}
+      </div>
+    {{/each}}
+</div>
 {{outlet}}
