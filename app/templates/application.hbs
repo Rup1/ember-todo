@@ -1,6 +1,6 @@
 {{!-- <h2 class="text-center">Ember To Do List</h2> --}}
 <br>
-<div class="container col-sm-4 p-0">
+<div class="container col-sm-4 p-2">
   <div class="d-flex">
     {{input class="form-control mr-1" value=description enter=(action 'saveTask' description)}}
     <button class="btn btn-success" type="submit">
@@ -10,24 +10,24 @@
 </div>
 <br>
 <br>
-<div class="container col-sm-4">
-    {{#each model as |task|}}
-      <div class="row">
-        <div class="list-group-item list-group-item-action" {{action 'toggleTask' task 'showNote'}}>
-          {{input type="checkbox" checked=task.isDone click=(action 'toggleTask' task checked)}}
+<div class="container col-sm-4 p-2">
+    {{#each model as |task index|}}
+      <div class="row" style="margin: auto">
+        <div class="list-group-item w-100">
+          <div class="{{if task.isDone 'done'}} list-group-item-action d-inline-block align-middle p-2 w-75 rounded"  {{action 'toggleTask' task 'showNote'}}>
+            {{#if task.isEditing}}
+              {{input value=task.description}} <button {{action "saveEdit" task}} class="btn btn-success">Save</button>
+            {{else}}
+            <span class="align-middle" {{action "editTask" task on="doubleClick"}}>{{index}}. {{task.description}}</span>
+            {{/if}}
+          </div>
 
-          {{#if task.isEditing}}
-            {{input value=task.description}} <button {{action "saveEdit" task}} class="btn btn-success">Save</button>
-          {{else}}
-          <span {{action "editTask" task on="doubleClick"}}>{{task.description}}</span>
-          {{/if}}
-
-
-        <div class="float-right">
-          <button class="btn btn-outline-success" data-toggle="button" {{action "toggleTask" task 'isDone'}}>✓</button>
-          <button class="btn btn-outline-danger" data-toggle="button" {{action "delete" task}}>X</button>
+          <div class="float-right">
+            <button class={{if task.isDone 'btn btn-success' 'btn btn-outline-success'}} data-toggle="button" {{action "toggleTask" task 'isDone' index}}>✓</button>
+            <button class="btn btn-outline-danger" data-toggle="button" {{action "delete" task}}>X</button>
+          </div>
         </div>
-        </div>
+
         {{#liquid-if task.showNote use='toDown'}}
           {{#if task.note}}
             <div class="list-group-item list-group-item-action">

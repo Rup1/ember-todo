@@ -16,6 +16,7 @@ export default Controller.extend({
     },
 
     saveNote(task, note) {
+      console.log(task.id);
       if(note.length > 3) {
         this.get('store').findRecord('task', task.id).then(function(theTask){
           theTask.set('note', note);
@@ -34,10 +35,12 @@ export default Controller.extend({
       task.deleteRecord();
       task.save();
     },
-    toggleTask(task, prop){
+
+    toggleTask(task, prop, i){
       task.toggleProperty(prop);
       task.save();
     },
+
     saveEdit(task) {
       task.set('isEditing', false);
       task.save();
@@ -50,6 +53,5 @@ export default Controller.extend({
     editNote(task) {
       task.set('editingNote', true)
     }
-
   }
 });

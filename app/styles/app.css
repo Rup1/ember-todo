@@ -5,3 +5,8 @@
 .taskInput{
   display: inline-block;
 }
+
+.done{
+  text-decoration: line-through;
+  color: #ccc;
+}
