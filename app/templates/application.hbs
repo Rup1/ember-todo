@@ -11,11 +11,20 @@
     </button>
   </div>
 </div>
+
+<div class="container col-sm-4 p-2">
+{{#each days as |day|}}
+  <button {{action 'setDay' day}} class="btn btn-success weekday" type="submit">
+      <span class="glyphicon glyphicon-plus">{{day}}</span>
+  </button>
+{{/each}}
+</div>
+
 <br>
 <div class="container col-sm-4 p-2">
-    {{#each allTasks as |task index|}}
-    
+    {{#each allTasks as |task|}}  
       <div class="row" style="margin: auto">
+
         <div class="list-group-item w-100">
           <div class="{{if task.isDone 'done'}} list-group-item-action d-inline-block align-middle p-2 w-75 rounded"  {{action 'toggleTask' task 'showNote'}}>
             {{#if task.isEditing}}
