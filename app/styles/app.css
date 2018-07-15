@@ -10,3 +10,8 @@
   text-decoration: line-through;
   color: #ccc;
 }
+
+.ember-power-select-trigger{
+  min-width: 150px;
+  margin-right: 5px;;
+}

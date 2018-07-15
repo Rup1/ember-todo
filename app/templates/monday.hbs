@@ -1,11 +1,7 @@
-{{!-- <h2 class="text-center">Ember To Do List</h2> --}}
 <br>
 <div class="container col-sm-4 p-2">
   <div class="d-flex">
-    {{input class="form-control mr-1 w-75" value=description enter=(action 'saveTask' description)}}
-    {{#power-select placeholder="Pick a day" selected=theDay options=days onchange=(action "foo") as |name|}}
-      {{name}}
-    {{/power-select}}
+    {{input class="form-control mr-1" value=description enter=(action 'saveTask' description)}}
     <button class="btn btn-success" type="submit">
       <span {{action 'saveTask' description}} class="glyphicon glyphicon-plus">Save</span>
     </button>
@@ -21,7 +17,7 @@
             {{#if task.isEditing}}
               {{input value=task.description autofocus=true autosave=true}} <button onClick={{action "saveEdit" task}} class="btn btn-success">Save</button>
             {{else}}
-            <span class="align-middle" onclick={{action "editTask" task}}> <strong>{{task.description}}</strong></span> <span class="align-middle">{{if task.day task.day}}</span>
+            <span class="align-middle" onclick={{action "editTask" task}}> {{task.description}}</span>
             {{/if}}
           </div>
 
@@ -53,4 +49,3 @@
       </div>
     {{/each}}
 </div>
-{{outlet}}
