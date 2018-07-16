@@ -3,57 +3,41 @@ import { sort } from '@ember/object/computed';
 import { computed } from '@ember/object';
 
 export default Controller.extend({
-  days: ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'],
-  theDay: '',
+  init() {
+    this._super(...arguments);
+    this.weekdays = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
+    this.taskDone = ['isDone'];
+    this.activeDay = this.weekdays[new Date().getDay()]
+  },
   showNote: false,
-  taskDone: ['isDone'],
-  whichDay: '',
 
-  filterDay: computed('model', 'whichDay', function(){
+  filteredDay: computed('model', 'activeDay', function(){
     const todos = this.get('model');
-    var d = new Date();
-    var weekday = this.days;
-    var n = weekday[d.getDay()];
-
-    if(this.whichDay === ''){
-      console.log(n);
-      return todos.filter((todo) => {
-        return todo.get('day') === n;
-      })
-    }
-
     return todos.filter((todo) => {
-      return todo.get('day') === this.whichDay;
+      return todo.get('day') === this.activeDay;
     });
   }),
   
-  allTasks: sort('filterDay','taskDone'),
-
+  sortedTasks: sort('filteredDay','taskDone'),
 
   actions: {
     saveTask(description) {
-      if(this.days.indexOf(this.theDay) !== -1 && description.length > 3) {
-        const originalDay = this.whichDay;
-        console.log("the description length is: " + description.length);
+      if( description.length > 3) {
+        const originalDay = this.activeDay;
         this.get('store').createRecord('task', {
-          description, day:this.theDay
+          description, day:this.activeDay
         }).save();
         this.set('description', '');
-        this.set('whichDay', '');
-        this.set('whichDay', originalDay);
+        this.set('activeDay', '');
+        this.set('activeDay', originalDay);
       }else{
         alert("Your task must be at least 5 characters!");
         this.set('description', '');
       }
     },
 
-    foo(opt){
-      console.log(opt);
-      this.set('theDay', opt);
-    },
-
     setDay(day){
-      this.set('whichDay', day);
+      this.set('activeDay', day);
     },
 
     saveNote(task, note) {
@@ -72,11 +56,8 @@ export default Controller.extend({
 
     
     delete(task) {
-      const originalDay = this.whichDay;
       task.deleteRecord();
       task.save();
-      this.set('whichDay', 'mon');
-      this.set('whichDay', 'wed');
     },
 
     toggleTask(task, prop){  

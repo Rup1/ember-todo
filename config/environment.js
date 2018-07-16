@@ -6,7 +6,7 @@ module.exports = function(environment) {
     environment,
     rootURL: '/',
     locationType: 'auto',
-
+    firebase: 'https://todo-tutorial-22175.firebaseio.com/', 
     firebase: {
       apiKey: "AIzaSyCjot_R7AZ5l63zN9a-ICgEAtJkdTlbUBA",
       authDomain: "todo-tutorial-22175.firebaseapp.com",
@@ -14,6 +14,9 @@ module.exports = function(environment) {
       projectId: "todo-tutorial-22175",
       storageBucket: "",
       messagingSenderId: "234147019097"
+    }, 
+    torii: {  
+      sessionServiceName: 'session',
     },
 
     EmberENV: {
@@ -34,6 +37,9 @@ module.exports = function(environment) {
   };
 
   if (environment === 'development') {
+    ENV['ember-cli-mirage'] = {
+      enabled: false
+    };
     // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;
     // ENV.APP.LOG_TRANSITIONS = true;

@@ -17,5 +17,6 @@
 }
 
 .weekday {
-  width: 13.6%;
+ width: calc(100% / 7.6);
 }
+
