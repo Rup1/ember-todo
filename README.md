@@ -1,7 +1,15 @@
 # todo-tutorial
 
-This README outlines the details of collaborating on this Ember application.
-A short introduction of this app could easily go here.
+Building advanced todo list app where users can sign up, create todo lists for each day of the week, and compete with a fellow doer to see who can complete the most tasks by the end of the week.
+
+Feature progress/wishlist
+
+- [x] Mockup basic core todo functionality of app.
+- [x] Add initial firebase authentication with torii
+- [ ] Fix delete not updating list.
+- [ ] Refactor app - split `application.hbs` and `controller.js` into components
+- [ ] Break app into routes welcome -> signup -> signin -> create tasks -> find users
+- [ ] Implement full-featured authentication. 
 
 ## Prerequisites
 
